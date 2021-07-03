@@ -1,0 +1,11 @@
+  - alias: "nuevo valor consigna"
+    trigger:
+      platform: state
+      entity_id: input_number.box1
+    action:
+      service: mqtt.publish
+      data:
+        topic: consigna
+        payload_template: "{{ states('input_number.box1') | int }}"
+
+  

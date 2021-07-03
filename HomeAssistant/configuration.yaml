@@ -1,0 +1,126 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 36.7202
+  longitude: -4.4203
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 9
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Madrid
+  # Customization file
+#  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+default_config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+ 
+sensor:
+
+ - platform: command_line
+   command: 'cat /home/pi/parametrosLuz.txt' 
+   name: Precio MWh
+
+   
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Cloud
+cloud:
+
+mqtt:
+ broker: localhost
+
+switch:
+ - platform: mqtt
+   name: luz
+   state_topic: "casa/luzhabitacion"
+   command_topic: "casa/luzhabitacion"
+   payload_on: "on"
+   payload_off: "off"
+   
+ - platform: mqtt
+   name: radiador
+   state_topic: "casa/switch1"
+   command_topic: "casa/switch1"
+   payload_on: "on"
+   payload_off: "off" 
+
+light:
+ - platform: mqtt
+   name: "Red"
+   state_topic: "casa/red"
+   command_topic: "casa/red"
+   brightness_state_topic: "casa/red"
+   brightness_command_topic: "casa/red"
+   payload_off: "0"
+   
+ - platform: mqtt
+   name: "Green"
+   state_topic: "casa/green"
+   command_topic: "casa/green"
+   brightness_state_topic: "casa/green"
+   brightness_command_topic: "casa/green"
+   payload_off: "0"
+   
+ - platform: mqtt
+   name: "Blue"
+   state_topic: "casa/blue"
+   command_topic: "casa/blue"
+   brightness_state_topic: "casa/blue"
+   brightness_command_topic: "casa/blue"
+   payload_off: "0"
+   
+   
+input_number:  
+  box1:
+    name: Precio MÃ¡ximo MW/h
+    min: 0
+    max: 850
+    step: 1
+    mode: box
+    unit_of_measurement: â‚¬
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+

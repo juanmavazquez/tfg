@@ -1,0 +1,11 @@
+precioluz:
+  alias: PrecioLuz
+  sequence:
+  - service: mqtt.publish
+    data:
+      topic: scripts/precioluz
+      payload: actualiza
+  - service: command_line.reload
+    data: {}
+  mode: single
+  max: 10
