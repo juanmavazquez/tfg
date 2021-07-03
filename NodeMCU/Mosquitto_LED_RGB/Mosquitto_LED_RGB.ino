@@ -59,10 +59,10 @@ void setup_wifi() {
   
   while (WiFi.status() != WL_CONNECTED) delay(500);
 
-  for(int k=0; k<20; k++){
-    digitalWrite(D4,HIGH);
+  for(int k=0; k<10; k++){ //Parpadea el LED verde para verificar que se ha conectado a la red Wi-Fi
+    digitalWrite(g,HIGH);
     delay(100);
-    digitalWrite(D4,LOW);
+    digitalWrite(g,LOW);
     delay(100);
   }
 
